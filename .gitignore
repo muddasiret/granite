@@ -98,3 +98,10 @@ yarn-debug.log*
 yarn-1.22.5.cjs
 yarn-1.22.5.js
 {"mode":"full","isActive":false}test/fixtures
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
