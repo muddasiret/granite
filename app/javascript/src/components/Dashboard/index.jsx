@@ -21,6 +21,15 @@ const Dashboard = ({ history }) => {
     }
   };
 
+  const destroyTask = async slug => {
+    try {
+      await tasksApi.destroy(slug);
+      await fetchTasks();
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   const updateTask = slug => {
     history.push(`/tasks/${slug}/edit`);
   };
@@ -53,7 +62,12 @@ const Dashboard = ({ history }) => {
 
   return (
     <Container>
-      <ListTasks data={tasks} updateTask={updateTask} showTask={showTask} />
+      <ListTasks
+        data={tasks}
+        destroyTask={destroyTask}
+        updateTask={updateTask}
+        showTask={showTask}
+      />
     </Container>
   );
 };

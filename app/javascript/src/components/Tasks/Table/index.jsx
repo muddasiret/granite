@@ -2,7 +2,7 @@ import React from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 
-const Table = ({ data, showTask, updateTask }) => {
+const Table = ({ data, showTask, updateTask, destroyTask }) => {
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -10,7 +10,7 @@ const Table = ({ data, showTask, updateTask }) => {
           <div className="overflow-hidden border-b border-bb-gray-200 shadow sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
               <TableHeader />
-              <TableRow data={data} showTask={showTask} updateTask={updateTask}/>
+              <TableRow data={data} showTask={showTask} destroyTask={destroyTask} updateTask={updateTask}/>
             </table>
           </div>
         </div>
