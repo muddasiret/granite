@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TableRow = ({ data, destroyTask, updateTask }) => {
+const TableRow = ({ data, destroyTask, updateTask, showTask }) => {
   return (
     <tbody className="bg-white divide-y divide-gray-200">
-      {data.map((rowData) => (
+      {data.map(rowData => (
         <tr key={rowData.id}>
           <td
             className="block w-64 px-6 py-4 text-sm font-medium
@@ -12,28 +12,16 @@ const TableRow = ({ data, destroyTask, updateTask }) => {
           >
             {rowData.title}
           </td>
-          <td
-            className="px-6 py-4 text-sm font-medium
-            leading-5 text-bb-gray whitespace-no-wrap"
-          >
+          <td className="px-6 py-4 text-sm font-medium leading-5 text-bb-gray whitespace-no-wrap">
             {rowData.user_id}
           </td>
-          <td
-            className="px-6 py-4 text-sm font-medium
-            leading-5 text-right cursor-pointer"
-          >
+          <td className="px-6 py-4 text-sm font-medium leading-5 text-right cursor-pointer">
             <a
-              className="text-bb-purple text-opacity-50
-              hover:text-opacity-100"
+              className="text-bb-purple"
+              onClick={() => showTask(rowData.slug)}
             >
-              Edit
+              Show
             </a>
-          </td>
-          <td
-            className="px-6 py-4 text-sm font-medium
-            leading-5 text-right cursor-pointer"
-          >
-            <a className=" hover:text-bb-red">Delete</a>
           </td>
         </tr>
       ))}
@@ -43,8 +31,7 @@ const TableRow = ({ data, destroyTask, updateTask }) => {
 
 TableRow.propTypes = {
   data: PropTypes.array.isRequired,
-  destroyTask: PropTypes.func,
-  updateTask: PropTypes.func,
+  showTask: PropTypes.func,
 };
 
 export default TableRow;

@@ -47,3 +47,9 @@ const handleErrorResponse = error => {
   }
   return Promise.reject(error);
 };
+
+export const registerIntercepts = () => {
+  axios.interceptors.response.use(handleSuccessResponse, error =>
+    handleErrorResponse(error)
+  );
+};
