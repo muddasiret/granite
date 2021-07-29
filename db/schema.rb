@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_184256) do
+ActiveRecord::Schema.define(version: 2021_07_29_062707) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_07_28_184256) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.string "authentication_token"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
