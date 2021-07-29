@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_110722) do
+ActiveRecord::Schema.define(version: 2021_07_29_151325) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_07_29_110722) do
     t.string "slug", null: false
     t.integer "user_id"
     t.string "assigned_user"
+    t.integer "creator_id"
     t.index ["slug"], name: "index_tasks_on_slug", unique: true
   end
 
