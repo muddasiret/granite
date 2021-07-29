@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :authenticate_user_using_x_auth_token, except: [:new, :edit]
-  before_action :load_task, only: %i[show update destroy]
+  before_action :load_task, only: %i[show edit destroy]
 
   def show
     render status: :ok, json: { task: @task }
@@ -41,7 +41,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :user_id)
+    params.require(:task).permit(:title, :user_id, :assigned_user)
   end
 
   def load_task

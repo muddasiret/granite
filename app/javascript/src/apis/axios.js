@@ -1,6 +1,6 @@
 import axios from "axios";
 import Toastr from "components/Common/Toastr";
-import { setToLocalStorage, getFromLocalStorage } from "helpers/storage.js";
+import { setToLocalStorage } from "helpers/storage.js";
 
 axios.defaults.baseURL = "/";
 
@@ -52,4 +52,9 @@ export const registerIntercepts = () => {
   axios.interceptors.response.use(handleSuccessResponse, error =>
     handleErrorResponse(error)
   );
+};
+
+export const resetAuthTokens = () => {
+  delete axios.defaults.headers["X-Auth-Email"];
+  delete axios.defaults.headers["X-Auth-Token"];
 };

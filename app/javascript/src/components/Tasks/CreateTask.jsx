@@ -8,6 +8,7 @@ import usersApi from "apis/users";
 const CreateTask = ({ history }) => {
   const [title, setTitle] = useState("");
   const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
@@ -15,10 +16,12 @@ const CreateTask = ({ history }) => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      await tasksApi.create({ task: { title, user_id: userId } });
+      logger.info({  user_id: userId, assigned_user:userName });
+      await tasksApi.create({ task: { title, user_id: userId, assigned_user:userName  } });
       setLoading(false);
       history.push("/");
-    } catch (error) {
+    } 
+    catch (error) {
       logger.error(error);
       setLoading(false);
     }
@@ -28,6 +31,7 @@ const CreateTask = ({ history }) => {
     try {
       const response = await usersApi.list();
       setUsers(response.data.users);
+      setUserName(response.data.users[0].name);
       setUserId(response.data.users[0].id);
       setPageLoading(false);
     } catch (error) {
@@ -50,6 +54,7 @@ const CreateTask = ({ history }) => {
         setTitle={setTitle}
         setUserId={setUserId}
         assignedUser={users[0]}
+        setUserName={setUserName}
         loading={loading}
         handleSubmit={handleSubmit}
         users={users}

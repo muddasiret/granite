@@ -11,6 +11,7 @@ import Signup from "components/Authentication/Signup";
 import { either, isEmpty, isNil } from "ramda";
 import Login from "components/Authentication/Login";
 import PrivateRoute from "components/Common/PrivateRoute";
+import { getFromLocalStorage } from "helpers/storage.js";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -29,16 +30,17 @@ const App = () => {
       <ToastContainer />
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/tasks/create" component={CreateTask} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/tasks/:slug/edit" component={EditTask} />
+        <Route exact path="/tasks/:slug/show" component={ShowTask} />
         <PrivateRoute
+          exact
           path="/"
           redirectRoute="/login"
           condition={isLoggedIn}
           component={Dashboard}
         />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/tasks/:slug/edit" component={EditTask} />
-        <Route exact path="/tasks/:slug/show" component={ShowTask} />
-        <Route exact path="/tasks/create" component={CreateTask} />
       </Switch>
     </Router>
   );

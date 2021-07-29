@@ -1,5 +1,10 @@
 import axios from "axios";
-
+const token = localStorage.getItem("authToken");
+const email = localStorage.getItem("authEmail");
+if (token && email) {
+  axios.defaults.headers["X-Auth-Email"] = email;
+  axios.defaults.headers["X-Auth-Token"] = token;
+}
 const list = () => axios.get("/tasks");
 
 const show = slug => axios.get(`/tasks/${slug}`);

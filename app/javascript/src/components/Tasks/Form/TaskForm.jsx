@@ -12,6 +12,7 @@ const TaskForm = ({
   setUserId,
   loading,
   handleSubmit,
+  setUserName
 }) => {
   const userOptions = users.map(user => ({
     value: user.id,
@@ -36,7 +37,7 @@ const TaskForm = ({
           <Select
             options={userOptions}
             defaultValue={defaultOption}
-            onChange={e => setUserId(e.value)}
+            onChange={e => {setUserId(e.value);setUserName(e.label);}}
             isSearchable
           />
         </div>
