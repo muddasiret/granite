@@ -2,6 +2,10 @@ class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   belongs_to :user
   has_many :comments, dependent: :destroy
+  enum progress: { pending: 0, completed: 1 }
+  enum status: { unstarred: 0, starred: 1 }
+  RESTRICTED_ATTRIBUTES = %i[title user_id]
+
 
   validates :slug, uniqueness: true
   validate :slug_not_changed

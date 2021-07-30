@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :ensure_authorized_update_to_restricted_attrs, only: %i[update]
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
   before_action :authenticate_user_using_x_auth_token
@@ -6,7 +7,21 @@ class TasksController < ApplicationController
 
   def index
     tasks = policy_scope(Task)
-    render status: :ok, json: { tasks: tasks }
+
+    pending_starred = tasks.pending.starred.order('updated_at DESC')
+    pending_unstarred = tasks.pending.unstarred
+    pending_tasks = (pending_starred + pending_unstarred).as_json(
+      include: { user: { only: %i[name id] } }
+    )
+
+    completed_starred = tasks.completed.starred.order('updated_at DESC')
+    completed_unstarred = tasks.completed.unstarred
+    completed_tasks = completed_starred + completed_unstarred
+
+    completed_tasks = tasks.completed
+    render status: :ok, json: {
+      tasks: { pending: pending_tasks, completed: completed_tasks }
+    }
   end
 
   def create
@@ -52,7 +67,16 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :user_id)
+    params.require(:task).permit(:title, :user_id, :progress, :status)
+  end
+
+  def ensure_authorized_update_to_restricted_attrs
+    is_editing_restricted_params = Task::RESTRICTED_ATTRIBUTES.any? { |a| task_params.key?(a) }
+    #is_not_owner = @task.creator_id != @current_user.id
+    is_not_owner = true
+    if is_editing_restricted_params && is_not_owner
+      authorization_error
+    end
   end
 
   def load_task
