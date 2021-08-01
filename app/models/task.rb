@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  after_create :log_task_details
+
   validates :title, presence: true, length: { maximum: 50 }
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -30,6 +32,10 @@ class Task < ApplicationRecord
       if slug_changed? && self.persisted?
         errors.add(:slug, t("task.slug.immutable"))
       end
+    end
+
+    def log_task_details
+      TaskLoggerJob.perform_later(self)
     end
 end
 

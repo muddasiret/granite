@@ -169,6 +169,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    redis (4.4.0)
     regexp_parser (2.1.1)
     rexml (3.2.3)
     rubocop (1.18.4)
@@ -202,6 +203,10 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sidekiq (6.2.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -263,6 +268,7 @@ DEPENDENCIES
   rubocop-rails
   sass-rails (>= 6)
   selenium-webdriver
+  sidekiq
   simplecov
   spring
   sqlite3 (~> 1.4)
