@@ -12,6 +12,7 @@ import { either, isEmpty, isNil } from "ramda";
 import Login from "components/Authentication/Login";
 import PrivateRoute from "components/Common/PrivateRoute";
 import { getFromLocalStorage } from "helpers/storage.js";
+import MyPreferences from "components/MyPreferences";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ const App = () => {
     <Router>
       <ToastContainer />
       <Switch>
+        <Route exact path="/my/preferences" component={MyPreferences} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/tasks/create" component={CreateTask} />
         <Route exact path="/signup" component={Signup} />

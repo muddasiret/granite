@@ -34,6 +34,7 @@ const NavBar = () => {
                 iconClass="ri-add-fill"
                 path="/tasks/create"
               />
+              <NavItem name="Preferences" path="/my/preferences" />
             </div>
           </div>
           <div className="flex items-center justify-end gap-x-4">

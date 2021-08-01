@@ -5,6 +5,10 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :user_notifications, dependent: :destroy, foreign_key: :user_id
+  has_one  :preference, dependent: :destroy, foreign_key: :user_id
+
+  before_create :build_default_preference
 
   validates :name, presence: true, length: { maximum: 35 }
   has_secure_password
@@ -21,6 +25,10 @@ class User < ApplicationRecord
 
     def to_lowercase
       email.downcase!
+    end
+
+    def build_default_preference
+      self.build_preference(notification_delivery_hour: Constants::DEFAULT_NOTIFICATION_DELIVERY_HOUR)
     end
 end
 
