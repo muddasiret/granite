@@ -19,8 +19,8 @@ const Signup = ({ history }) => {
           name,
           email,
           password,
-          password_confirmation: passwordConfirmation,
-        },
+          password_confirmation: passwordConfirmation
+        }
       });
       setLoading(false);
       history.push("/");

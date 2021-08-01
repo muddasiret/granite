@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   before_action :authenticate_user_using_x_auth_token, only: [:destroy]
 
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
         user_name: user.name
       }
     else
-      render status: :unauthorized, json: { notice: t('session.incorrect_credentials') }
+      render status: :unauthorized, json: { notice: t("session.incorrect_credentials") }
     end
   end
 
@@ -24,3 +26,4 @@ class SessionsController < ApplicationController
       params.require(:login).permit(:email, :password)
     end
 end
+

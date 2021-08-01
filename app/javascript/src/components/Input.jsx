@@ -7,7 +7,7 @@ const Input = ({
   value,
   onChange,
   placeholder,
-  required = true,
+  required = true
 }) => {
   return (
     <div className="mt-6">
@@ -43,7 +43,7 @@ Input.propTypes = {
   value: PropTypes.node,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  required: PropTypes.bool,
+  required: PropTypes.bool
 };
 
 export default Input;

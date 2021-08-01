@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const create = (payload) => axios.post(`/comments`, payload);
+const create = payload => axios.post(`/comments`, payload);
 
 const commentsApi = {
-  create,
+  create
 };
 
 export default commentsApi;

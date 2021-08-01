@@ -8,7 +8,7 @@ const TableRow = ({
   destroyTask,
   showTask,
   handleProgressToggle,
-  starTask,
+  starTask
 }) => {
   const isCompleted = type === "completed";
   const toggledProgress = isCompleted ? "pending" : "completed";
@@ -26,17 +26,17 @@ const TableRow = ({
               onChange={() =>
                 handleProgressToggle({
                   slug: rowData.slug,
-                  progress: toggledProgress,
+                  progress: toggledProgress
                 })
               }
             />
           </td>
           <td
             className={classnames(
-               "block w-64 px-6 py-4 text-sm font-medium leading-8 text-bb-purple capitalize truncate",
+              "block w-64 px-6 py-4 text-sm font-medium leading-8 text-bb-purple capitalize truncate",
               {
                 "cursor-pointer": !isCompleted,
-                "text-opacity-50": isCompleted,
+                "text-opacity-50": isCompleted
               }
             )}
             onClick={() => !isCompleted && showTask(rowData.slug)}
@@ -45,8 +45,10 @@ const TableRow = ({
           </td>
           {!isCompleted && (
             <>
-              <td className="px-6 py-4 text-sm font-medium leading-5
-                            text-bb-gray-600 whitespace-no-wrap">
+              <td
+                className="px-6 py-4 text-sm font-medium leading-5
+                            text-bb-gray-600 whitespace-no-wrap"
+              >
                 {rowData.user.name}
               </td>
               <td className="pl-6 py-4 text-center cursor-pointer">
@@ -55,11 +57,11 @@ const TableRow = ({
                     "transition duration-300 ease-in-out text-2xl hover:text-bb-yellow p-1",
                     {
                       "text-bb-border ri-star-line":
-                        rowData.status !== "starred",
+                        rowData.status !== "starred"
                     },
                     {
                       "text-white text-bb-yellow ri-star-fill":
-                        rowData.status === "starred",
+                        rowData.status === "starred"
                     }
                   )}
                   onClick={() => starTask(rowData.slug, rowData.status)}
@@ -91,7 +93,7 @@ TableRow.propTypes = {
   type: PropTypes.string,
   destroyTask: PropTypes.func,
   showTask: PropTypes.func,
-  handleProgressToggle: PropTypes.func,
+  handleProgressToggle: PropTypes.func
 };
 
 export default TableRow;

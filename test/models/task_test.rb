@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class TaskTest < ActiveSupport::TestCase
   def setup
     @task = create(:task)
   end
-  
+
   def test_instance_of_task
     task = Task.new
     assert_instance_of Task, task
@@ -28,13 +30,13 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   def test_task_count_increases_on_saving
-    assert_difference ['Task.count'], 1 do
+    assert_difference ["Task.count"], 1 do
       create(:task)
     end
   end
 
   def test_task_should_not_be_valid_without_title
-    @task.title = ''
+    @task.title = ""
     assert @task.invalid?
   end
 
@@ -54,14 +56,14 @@ class TaskTest < ActiveSupport::TestCase
     assert_raises ActiveRecord::RecordInvalid do
       new_task.update!(slug: @task.slug)
     end
-  
+
     error_msg = new_task.errors.full_messages.to_sentence
-    assert_match t('task.slug.immutable'), error_msg
+    assert_match t("task.slug.immutable"), error_msg
   end
 
   def test_updating_title_does_not_update_slug
     assert_no_changes -> { @task.reload.slug } do
-      updated_task_title = 'updated task tile'
+      updated_task_title = "updated task tile"
       @task.update!(title: updated_task_title)
       assert_equal updated_task_title, @task.title
     end
@@ -70,10 +72,11 @@ class TaskTest < ActiveSupport::TestCase
   def test_slug_index_to_be_reused_after_getting_deleted
     duplicate_task = create(:task, title: @task.title)
     assert_equal "#{@task.slug}-2", duplicate_task.slug
-  
+
     duplicate_task.destroy
     duplicate_task_with_same_title = create(:task, title: @task.title)
-  
+
     assert_equal "#{@task.slug}-2", duplicate_task_with_same_title.slug
   end
 end
+

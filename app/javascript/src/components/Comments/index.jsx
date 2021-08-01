@@ -19,7 +19,7 @@ const Comments = ({ comments, loading, setNewComment, handleSubmit }) => {
             className="flex-1 block w-full p-2 border border-bb-border
             rounded-md shadow-sm resize-none text-bb-gray-600
             focus:ring-bb-purple focus:border-bb-purple sm:text-sm"
-            onChange={(e) => setNewComment(e.target.value)}
+            onChange={e => setNewComment(e.target.value)}
           ></textarea>
         </div>
         <Button type="submit" buttonText="Comment" loading={loading} />

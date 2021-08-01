@@ -50,11 +50,11 @@ const ShowTask = () => {
     }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     try {
       await commentsApi.create({
-        comment: { content: newComment, task_id: taskId },
+        comment: { content: newComment, task_id: taskId }
       });
       fetchTaskDetails();
       setLoading(false);

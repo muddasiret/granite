@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
   before_action :ensure_authorized_update_to_restricted_attrs, only: %i[update]
   after_action :verify_authorized, except: :index
@@ -8,13 +10,13 @@ class TasksController < ApplicationController
   def index
     tasks = policy_scope(Task)
 
-    pending_starred = tasks.pending.starred.order('updated_at DESC')
+    pending_starred = tasks.pending.starred.order("updated_at DESC")
     pending_unstarred = tasks.pending.unstarred
     pending_tasks = (pending_starred + pending_unstarred).as_json(
       include: { user: { only: %i[name id] } }
     )
 
-    completed_starred = tasks.completed.starred.order('updated_at DESC')
+    completed_starred = tasks.completed.starred.order("updated_at DESC")
     completed_unstarred = tasks.completed.unstarred
     completed_tasks = completed_starred + completed_unstarred
 
@@ -29,7 +31,7 @@ class TasksController < ApplicationController
     authorize @task
     if @task.save
       render status: :ok,
-             json: { notice: t('successfully_created', entity: 'Task') }
+             json: { notice: t("successfully_created", entity: "Task") }
     else
       errors = @task.errors.full_messages.to_sentence
       render status: :unprocessable_entity, json: { errors: errors }
@@ -38,10 +40,12 @@ class TasksController < ApplicationController
 
   def show
     authorize @task
-    comments = @task.comments.order('created_at DESC')
+    comments = @task.comments.order("created_at DESC")
     task_creator = User.find(@task.creator_id).name
-    render status: :ok, json: { task: @task, assigned_user: @task.user,
-                              comments: comments, task_creator: task_creator }
+    render status: :ok, json: {
+      task: @task, assigned_user: @task.user,
+      comments: comments, task_creator: task_creator
+    }
   end
 
   def update
@@ -66,22 +70,23 @@ class TasksController < ApplicationController
 
   private
 
-  def task_params
-    params.require(:task).permit(:title, :user_id, :progress, :status)
-  end
-
-  def ensure_authorized_update_to_restricted_attrs
-    is_editing_restricted_params = Task::RESTRICTED_ATTRIBUTES.any? { |a| task_params.key?(a) }
-    #is_not_owner = @task.creator_id != @current_user.id
-    is_not_owner = true
-    if is_editing_restricted_params && is_not_owner
-      authorization_error
+    def task_params
+      params.require(:task).permit(:title, :user_id, :progress, :status)
     end
-  end
 
-  def load_task
-    @task = Task.find_by_slug!(params[:slug])
-  rescue ActiveRecord::RecordNotFound => e
-    render json: { errors: e }, status: :not_found
-  end
+    def ensure_authorized_update_to_restricted_attrs
+      is_editing_restricted_params = Task::RESTRICTED_ATTRIBUTES.any? { |a| task_params.key?(a) }
+      # is_not_owner = @task.creator_id != @current_user.id
+      is_not_owner = true
+      if is_editing_restricted_params && is_not_owner
+        authorization_error
+      end
+    end
+
+    def load_task
+      @task = Task.find_by_slug!(params[:slug])
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { errors: e }, status: :not_found
+    end
 end
+

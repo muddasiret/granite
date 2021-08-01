@@ -32,7 +32,7 @@ const Dashboard = ({ history }) => {
     }
   };
 
-  const destroyTask = async (slug) => {
+  const destroyTask = async slug => {
     try {
       await tasksApi.destroy(slug);
       await fetchTasks();
@@ -41,7 +41,7 @@ const Dashboard = ({ history }) => {
     }
   };
 
-  const showTask = (slug) => {
+  const showTask = slug => {
     history.push(`/tasks/${slug}/show`);
   };
 
@@ -50,7 +50,7 @@ const Dashboard = ({ history }) => {
       const toggledStatus = status === "starred" ? "unstarred" : "starred";
       await tasksApi.update({
         slug,
-        payload: { task: { status: toggledStatus } },
+        payload: { task: { status: toggledStatus } }
       });
       await fetchTasks();
     } catch (error) {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include Pundit
@@ -14,7 +16,7 @@ class ApplicationController < ActionController::Base
       )
       @current_user = user
     else
-      render status: :unauthorized, json: { errors: [t('session.could_not_auth')] }
+      render status: :unauthorized, json: { errors: [t("session.could_not_auth")] }
     end
   end
 
@@ -23,7 +25,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
     def current_user
       @current_user
     end
 end
+

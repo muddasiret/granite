@@ -9,7 +9,7 @@ const SignupForm = ({
   setEmail,
   setPassword,
   loading,
-  setPasswordConfirmation,
+  setPasswordConfirmation
 }) => {
   return (
     <div

@@ -18,7 +18,7 @@ const Login = () => {
         authToken: response.data.auth_token,
         email,
         userId: response.data.userId,
-        userName: response.data.user_name,
+        userName: response.data.user_name
       });
       setAuthHeaders();
       setLoading(false);

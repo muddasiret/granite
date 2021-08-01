@@ -16,12 +16,13 @@ const CreateTask = ({ history }) => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      logger.info({  user_id: userId, assigned_user:userName });
-      await tasksApi.create({ task: { title, user_id: userId, assigned_user:userName  } });
+      logger.info({ user_id: userId, assigned_user: userName });
+      await tasksApi.create({
+        task: { title, user_id: userId, assigned_user: userName }
+      });
       setLoading(false);
       history.push("/");
-    } 
-    catch (error) {
+    } catch (error) {
       logger.error(error);
       setLoading(false);
     }
